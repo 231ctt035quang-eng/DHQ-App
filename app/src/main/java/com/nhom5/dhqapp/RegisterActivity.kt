@@ -8,6 +8,8 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import com.nhom5.dhqapp.data.AppDatabase
 import com.nhom5.dhqapp.data.User
+import android.content.Intent
+
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
@@ -42,11 +44,24 @@ class RegisterActivity : AppCompatActivity() {
                             Toast.makeText(this@RegisterActivity, "Email đã được sử dụng", Toast.LENGTH_SHORT).show()
                         } else {
                             Toast.makeText(this@RegisterActivity, "Đăng ký thành công! Hãy đăng nhập", Toast.LENGTH_SHORT).show()
-                            finish() // quay lại màn đăng nhập
+                            startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
+                            finish()
                         }
                     }
                 }
             }
         }
+        binding.ivBack.setOnClickListener {
+            val intent = Intent(this, WelcomeActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            }
+            startActivity(intent)
+            finish()
+        }
+        binding.tvLogin.setOnClickListener {             // link dưới → sang màn Đăng nhập
+            startActivity(android.content.Intent(this, LoginActivity::class.java))
+            finish()
+        }
+
     }
 }
